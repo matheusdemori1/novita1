@@ -95,16 +95,6 @@ export default function HomePage() {
     }
   ];
 
-  // Função para embaralhar array de forma inteligente
-  const shuffleArray = <T,>(array: T[]): T[] => {
-    const shuffled = [...array];
-    for (let i = shuffled.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
-      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
-    }
-    return shuffled;
-  };
-
   // Função para carregar dados (usando dados padrão)
   const loadData = useCallback(async () => {
     if (!mounted) return;
@@ -112,7 +102,7 @@ export default function HomePage() {
     try {
       setLoading(true);
       
-      // Usar dados padrão
+      // Usar dados padrão - produtos serão carregados do Supabase pelo usuário
       setProducts([]);
       setCategories(defaultCategories);
       setBrands(defaultBrands);
@@ -386,14 +376,14 @@ export default function HomePage() {
                 <p className="text-gray-600 text-2xl mb-6 font-semibold">Nenhum produto encontrado</p>
                 <p className="text-gray-500 text-lg">
                   {products.length === 0 
-                    ? 'Aguarde enquanto o administrador adiciona os primeiros produtos'
+                    ? 'Os produtos serão carregados diretamente do Supabase'
                     : 'Tente ajustar os filtros ou buscar por outros termos'
                   }
                 </p>
                 {products.length === 0 && (
                   <div className="mt-8">
-                    <p className="text-sm text-gray-400 mb-2">Para adicionar produtos de exemplo:</p>
-                    <p className="text-xs text-gray-500">Consulte o arquivo DADOS_EXEMPLO.md na raiz do projeto</p>
+                    <p className="text-sm text-gray-400 mb-2">Para adicionar produtos:</p>
+                    <p className="text-xs text-gray-500">Cadastre os produtos diretamente no seu banco Supabase</p>
                   </div>
                 )}
               </div>
